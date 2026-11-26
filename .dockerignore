@@ -1,0 +1,9 @@
+# Never ship local secrets or VCS/tool metadata into an image.
+backend/.env
+.env
+*.log
+.git
+.github
+node_modules
+.freebuff
+docs
