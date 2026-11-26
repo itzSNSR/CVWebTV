@@ -225,6 +225,21 @@ static hosting; host `backend/` separately; then set in `js/config.js`:
 `window.CVTV_API_BASE = 'https://api.example.com'` and set `CVTV_ALLOWED_ORIGINS` on the
 backend. `localhost` is never hardcoded as a production address.
 
+**GitHub Pages (frontend only).** `https://itzsnsr.github.io/CVWebTV/` is built by
+`.github/workflows/pages.yml`, which publishes the six static folders and nothing from
+`backend/`. Pages cannot run Node, so the deployed page loads its shell and then reports
+the content service as unreachable — that is expected, not a fault. To give it a working
+catalogue, deploy `backend/` somewhere that runs Node and open the site with the origin:
+
+```
+https://itzsnsr.github.io/CVWebTV/?api=https://your-backend.example.com
+```
+
+`js/config.js` reads that `api` parameter (it only ever sets a base URL), the backend
+needs `CVTV_ALLOWED_ORIGINS=https://itzsnsr.github.io` and `CVTV_PUBLIC_ORIGIN` set to
+its own public origin so media links are absolute. Bookmarks without the parameter fall
+back to same-origin, so they will show the offline message by design.
+
 Full variable list: `backend/.env.example` — `MOVIEBOX_BASE_URL` (defaults to the APK
 server's host), `MOVIEBOX_APP_KEY` (**required**), `MOVIEBOX_APP_KEY_ENCODING`
 (`auto`/`base64`/`utf8`), `MOVIEBOX_SIGNING_SCHEME` (`hmac-md5`), `MOVIEBOX_SIGNATURE_VERSION`,
