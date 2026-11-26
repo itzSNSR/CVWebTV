@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=1280">
+<title>CineVault TV — Device compatibility test</title>
+<style>
+  html, body { margin: 0; padding: 0; background: #101014; color: #FFFFFF;
+    font-family: Arial, Helvetica, sans-serif; font-size: 18px; }
+  body { padding: 32px 40px 60px 40px; overflow-y: auto; }
+  h1 { font-size: 26px; margin: 0 0 6px 0; }
+  p.lead { color: #AAAAAA; margin: 0 0 20px 0; font-size: 15px; line-height: 1.5; max-width: 60em; }
+  .toolbar { margin-bottom: 18px; white-space: nowrap; }
+  button { font-family: inherit; font-size: 15px; padding: 8px 14px; margin-right: 8px;
+    background: #25252B; color: #FFFFFF; border: 2px solid #3A3A44; border-radius: 6px; }
+  button.primary { background: #8B5CF6; border-color: #8B5CF6; font-weight: bold; }
+  button.focused { outline: 3px solid #C4B5FD; }
+  table { border-collapse: collapse; width: 100%; max-width: 78em; }
+  th, td { text-align: left; vertical-align: top; padding: 8px 10px; border-bottom: 1px solid #2C2C33; font-size: 15px; }
+  th { color: #AAAAAA; font-weight: normal; font-size: 13px; text-transform: uppercase; }
+  td.num { color: #7A7A85; width: 2em; }
+  td.name { width: 15em; }
+  td.state { width: 8em; }
+  td.go { width: 7em; }
+  .badge { display: inline-block; padding: 3px 8px; border-radius: 4px; font-size: 12px; font-weight: bold; }
+  .badge.idle { background: #33333B; color: #AAAAAA; }
+  .badge.pass { background: #14532D; color: #6EE7A8; }
+  .badge.fail { background: #7F1D1D; color: #FECACA; }
+  .badge.unsup { background: #3F3F17; color: #FDE68A; }
+  .badge.running { background: #1E3A8A; color: #BFDBFE; }
+  .detail { color: #AAAAAA; font-size: 13px; margin-top: 4px; white-space: pre-wrap; }
+  #stage { position: fixed; right: 20px; bottom: 16px; width: 300px; background: #000;
+    border: 1px solid #3A3A44; }
+  #stage video { width: 300px; height: 169px; display: block; background: #000; }
+  #keypanel { border: 2px solid #3A3A44; border-radius: 6px; background: #19191E;
+    padding: 12px 14px; margin: 0 0 18px 0; max-width: 60em; display: none; }
+  #keypanel.on { display: block; }
+  #keynow { font-family: monospace; font-size: 20px; color: #C4B5FD; margin: 6px 0; }
+  #keylog { font-family: monospace; font-size: 13px; color: #DDDDDD; line-height: 1.6; max-height: 160px; overflow: auto; }
+  .kb { display: inline-block; padding: 1px 6px; border-radius: 3px; background: #25252B; margin-right: 6px; }
+  .kb.ok { background: #14532D; }
+  input.text { width: 22em; padding: 8px; background: #25252B; color: #fff;
+    border: 2px solid #3A3A44; border-radius: 6px; font-family: inherit; font-size: 16px; }
+</style>
+</head>
+<body>
+
+<h1>CineVault TV — device compatibility test</h1>
+<p class="lead">
+  Run this page on the television itself, in the television's own browser. A test only
+  reports PASS when the television actually did the thing — an existing JavaScript API is
+  not treated as proof. Playback tests start only when you select them. Desktop results do
+  not prove television compatibility.
+</p>
+
+<div class="toolbar">
+  <button id="run-auto">Run automatic tests</button>
+  <button id="run-all" class="primary">Run everything non-interactive</button>
+  <button id="reset">Reset results</button>
+</div>
+
+<div id="keypanel">
+  <strong>Remote key capture</strong>
+  <div id="keynow">Press a remote button...</div>
+  <div id="keylog"></div>
+</div>
+
+<table>
+  <thead>
+    <tr><th>#</th><th>Test</th><th>Result</th><th>Run</th><th></th></tr>
+  </thead>
+  <tbody id="rows"></tbody>
+</table>
+
+<div id="stage">
+  <video id="v" preload="none" playsinline webkit-playsinline></video>
+</div>
+
+<script src="tests.js"></script>
+</body>
+</html>

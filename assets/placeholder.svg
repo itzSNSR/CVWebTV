@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="300" height="450" viewBox="0 0 300 450" role="img" aria-label="No poster">
+  <rect width="300" height="450" fill="#25252B"/>
+  <rect x="88" y="176" width="124" height="86" rx="10" fill="none" stroke="#AAAAAA" stroke-width="4"/>
+  <path d="M140 200 L172 219 L140 238 Z" fill="#AAAAAA"/>
+  <text x="150" y="300" font-family="sans-serif" font-size="16" fill="#AAAAAA" text-anchor="middle">No poster</text>
+</svg>

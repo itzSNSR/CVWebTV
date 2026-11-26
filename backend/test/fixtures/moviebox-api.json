@@ -1,0 +1,90 @@
+{
+  "subjects": {
+    "mock-movie-1": {
+      "subjectId": "mock-movie-1",
+      "title": "Mock Horizon",
+      "cover": {
+        "url": "https://cdn.example.test/full/mock-movie-1.jpg",
+        "thumbUrl": "https://cdn.example.test/thumb/mock-movie-1.jpg"
+      },
+      "horizontalPoster": {
+        "url": "https://cdn.example.test/wide/mock-movie-1.jpg"
+      },
+      "description": "Fixture movie used by the signing integration test.",
+      "imdbRatingValue": "8.1",
+      "releaseDate": "2023-04-11",
+      "subjectType": 1,
+      "duration": "118",
+      "dubs": [
+        { "lanName": "English", "subjectId": "mock-movie-1", "original": true },
+        { "lanName": "Malayalam", "subjectId": "mock-movie-1-ml" }
+      ],
+      "genres": ["Drama", "Thriller"]
+    },
+    "mock-series-1": {
+      "subjectId": "mock-series-1",
+      "title": "Mock Protocol",
+      "cover": {
+        "thumbUrl": "https://cdn.example.test/thumb/mock-series-1.jpg"
+      },
+      "description": "Fixture series with two episodes.",
+      "imdbRatingValue": "7.4",
+      "releaseDate": "2022-01-05",
+      "subjectType": 2,
+      "seasonCount": 1,
+      "dubs": [
+        { "lanName": "English", "subjectId": "mock-series-1" }
+      ],
+      "genres": ["Documentary"]
+    }
+  },
+  "lists": {
+    "trending": ["mock-series-1", "mock-movie-1"],
+    "category": ["mock-movie-1", "mock-series-1"],
+    "ranking": ["mock-movie-1"]
+  },
+  "seasons": {
+    "mock-series-1": [
+      {
+        "se": 1,
+        "allEp": "1,2",
+        "resolutions": [{ "resolution": 1080, "epNum": 2 }]
+      }
+    ]
+  },
+  "playback": {
+    "mock-movie-1": {
+      "resourceId": "res-mock-movie-1",
+      "streamList": [
+        {
+          "resolutions": [
+            { "resolution": 1080, "url": "https://cdn.example.test/mock-movie-1-1080.mp4" },
+            { "resolution": 720, "url": "https://cdn.example.test/mock-movie-1-720.mp4" }
+          ]
+        }
+      ],
+      "subtitles": [
+        { "lan": "en", "lanName": "English", "url": "https://cdn.example.test/subs/mock-movie-1.en.vtt" }
+      ]
+    },
+    "mock-series-1:1:1": {
+      "resourceId": "res-mock-series-1",
+      "streamList": [
+        {
+          "resolutions": [
+            { "resolution": 720, "url": "https://cdn.example.test/mock-series-1-1-720.mp4" }
+          ]
+        }
+      ],
+      "subtitles": []
+    }
+  },
+  "captions": {
+    "mock-movie-1": [
+      { "lan": "ml", "lanName": "Malayalam", "url": "https://cdn.example.test/subs/mock-movie-1.ml.srt" }
+    ],
+    "mock-series-1": [
+      { "lan": "en", "lanName": "English", "url": "https://cdn.example.test/subs/mock-series-1.en.vtt" }
+    ]
+  }
+}

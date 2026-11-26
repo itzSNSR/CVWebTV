@@ -1,0 +1,729 @@
+/* ==========================================================================
+   CineVault TV 1.0 — app.css
+   Design targets a 1280x720 logical screen and scales by root font size.
+   No animations, no transitions, no filters, no blurred shadows, no grid.
+   ========================================================================== */
+
+html {
+  font-size: 16px;
+  background: #101014;
+}
+@media (min-width: 1500px) { html { font-size: 18px; } }
+@media (min-width: 1700px) { html { font-size: 20px; } }
+
+* {
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+body {
+  background: #101014;
+  color: #FFFFFF;
+  font-family: Arial, Helvetica, "Liberation Sans", sans-serif;
+  font-size: 1rem;
+  line-height: 1.35;
+  overflow: hidden;
+  -webkit-text-size-adjust: 100%;
+}
+
+img { border: 0; }
+
+/* --------------------------------------------------------------- app shell */
+
+#app {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-flex-direction: row;
+  flex-direction: row;
+}
+
+#sidebar {
+  width: 15rem;
+  min-width: 15rem;
+  background: #19191E;
+  border-right: 1px solid #2C2C33;
+  padding: 2.5rem 1.25rem;
+  position: relative;
+}
+
+#brand {
+  display: block;
+  margin-bottom: 0.35rem;
+  font-size: 1.5rem;
+  font-weight: bold;
+  letter-spacing: 0.02em;
+}
+#brand .cv {
+  display: inline-block;
+  width: 1.9rem;
+  height: 1.9rem;
+  line-height: 1.9rem;
+  text-align: center;
+  background: #8B5CF6;
+  border-radius: 0.35rem;
+  font-size: 0.95rem;
+  margin-right: 0.5rem;
+  vertical-align: middle;
+}
+#brand .tv {
+  color: #C4B5FD;
+  font-size: 0.95rem;
+  vertical-align: middle;
+  margin-left: 0.35rem;
+}
+#brand-sub {
+  display: block;
+  color: #7A7A85;
+  font-size: 0.8125rem;
+  margin-bottom: 2rem;
+}
+
+#nav { display: block; }
+
+.nav-item {
+  display: block;
+  padding: 0.85rem 0.9rem;
+  margin-bottom: 0.5rem;
+  border-radius: 0.4rem;
+  font-size: 1.125rem;
+  color: #AAAAAA;
+  border: 3px solid transparent;
+  cursor: default;
+}
+.nav-item.selected {
+  background: #8B5CF6;
+  color: #FFFFFF;
+  font-weight: bold;
+}
+.nav-item.focused {
+  border-color: #C4B5FD;
+  color: #FFFFFF;
+}
+.nav-item.selected.focused {
+  border-color: #EDE9FE;
+}
+
+#sidebar-foot {
+  position: absolute;
+  left: 1.25rem;
+  right: 1.25rem;
+  bottom: 2rem;
+  color: #6E6E78;
+  font-size: 0.75rem;
+  line-height: 1.5;
+}
+#sidebar-foot .state { color: #AAAAAA; }
+
+/* ------------------------------------------------------------- content area */
+
+#main {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+}
+
+.screen {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  overflow: hidden;
+}
+.screen.hidden { display: none; }
+
+/* Fixed head + fixed filter strip + a single scrolling body. Absolute
+   positioning is used instead of flex so older engines cannot collapse it. */
+.shead {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 5.5rem;
+  padding: 2.25rem 2.25rem 0 2.25rem;
+  white-space: nowrap;
+}
+.screen-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  display: inline-block;
+  vertical-align: middle;
+}
+.screen-note {
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 1rem;
+  color: #AAAAAA;
+  font-size: 0.875rem;
+  white-space: normal;
+}
+
+.sfilters {
+  position: absolute;
+  top: 5.5rem; left: 0; right: 0;
+  height: 3.9rem;
+  padding: 0 2.25rem;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.sbody {
+  position: absolute;
+  top: 9.4rem;
+  left: 2.25rem; right: 2.25rem; bottom: 1.75rem;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+#view-details .sbody { top: 2.25rem; }
+#view-library .sbody { top: 9.4rem; }
+
+/* Scrollbar: keep it visible and static so content position is obvious. */
+.sbody::-webkit-scrollbar { width: 0.6rem; }
+.sbody::-webkit-scrollbar-track { background: #19191E; }
+.sbody::-webkit-scrollbar-thumb { background: #3A3A44; }
+
+/* ---------------------------------------------------------------- filter bar */
+
+.chip {
+  display: inline-block;
+  vertical-align: middle;
+  padding: 0.45rem 0.9rem;
+  margin-right: 0.5rem;
+  border: 3px solid transparent;
+  border-radius: 1rem;
+  background: #25252B;
+  color: #AAAAAA;
+  font-size: 0.9375rem;
+  white-space: nowrap;
+}
+.chip.on {
+  background: #8B5CF6;
+  color: #FFFFFF;
+  font-weight: bold;
+}
+.chip.focused { border-color: #C4B5FD; color: #FFFFFF; }
+.chip.on.focused { border-color: #EDE9FE; }
+
+/* -------------------------------------------------------------------- cards */
+
+.row-title {
+  font-size: 1.1875rem;
+  font-weight: bold;
+  color: #FFFFFF;
+  margin: 1.25rem 0 0.75rem 0;
+}
+.row-title .count { color: #7A7A85; font-weight: normal; font-size: 0.9375rem; margin-left: 0.5rem; }
+
+.row { display: block; white-space: nowrap; }
+.row .card { display: inline-block; vertical-align: top; white-space: normal; }
+
+.card {
+  width: 9.25rem;
+  margin: 0 0.85rem 1.25rem 0;
+  border: 3px solid transparent;
+  border-radius: 0.35rem;
+  padding: 0.25rem;
+  background: transparent;
+}
+.card.focused {
+  border-color: #C4B5FD;
+  background: #1D1D22;
+}
+.card .poster {
+  display: block;
+  width: 100%;
+  height: 13.4rem;
+  background: #25252B;
+  border-radius: 0.25rem;
+  overflow: hidden;
+}
+.card .poster img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 0.25rem;
+  /* Crop, never squash: the card box is fixed at 2:3 whatever the artwork is.
+     Plain percent sizing is the fallback for engines without object-fit. */
+  -o-object-fit: cover;
+  object-fit: cover;
+}
+.card .name {
+  display: block;
+  margin-top: 0.4rem;
+  font-size: 0.9375rem;
+  color: #FFFFFF;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.card .meta {
+  display: block;
+  font-size: 0.8125rem;
+  color: #AAAAAA;
+  margin-top: 0.1rem;
+}
+.card .badge {
+  display: inline-block;
+  font-size: 0.6875rem;
+  padding: 0.05rem 0.3rem;
+  border-radius: 0.2rem;
+  background: #33333B;
+  color: #C4B5FD;
+  margin-right: 0.25rem;
+}
+
+/* --------------------------------------------------------------- list states */
+
+.loading { color: #AAAAAA; font-size: 1.125rem; padding: 1rem 0; }
+.notice {
+  border: 1px solid #3A3A44;
+  border-left: 4px solid #8B5CF6;
+  background: #1A1A1F;
+  padding: 1rem 1.25rem;
+  margin: 0 0 1.25rem 0;
+  color: #DDDDDD;
+  font-size: 1rem;
+  max-width: 46rem;
+}
+.notice.error { border-left-color: #F87171; }
+.notice .actions { margin-top: 0.75rem; }
+
+.btn {
+  display: inline-block;
+  padding: 0.55rem 1.15rem;
+  margin-right: 0.6rem;
+  border: 3px solid transparent;
+  border-radius: 0.35rem;
+  background: #25252B;
+  color: #FFFFFF;
+  font-size: 1rem;
+  white-space: nowrap;
+}
+.btn.primary { background: #8B5CF6; font-weight: bold; }
+.btn.focused { border-color: #C4B5FD; }
+.btn.primary.focused { border-color: #EDE9FE; }
+
+/* --------------------------------------------------------------- search view */
+
+#search-input {
+  display: inline-block;
+  vertical-align: middle;
+  width: 26rem;
+  height: 2.9rem;
+  padding: 0 0.9rem;
+  background: #25252B;
+  border: 3px solid #3A3A44;
+  border-radius: 0.35rem;
+  color: #FFFFFF;
+  font-family: inherit;
+  font-size: 1.125rem;
+  outline: none;
+}
+
+/* Shared text field: used by search, episode search and Live TV search. */
+.text-input {
+  display: inline-block;
+  vertical-align: middle;
+  height: 2.75rem;
+  padding: 0 0.8rem;
+  background: #25252B;
+  border: 3px solid #3A3A44;
+  border-radius: 0.35rem;
+  color: #FFFFFF;
+  font-family: inherit;
+  font-size: 1rem;
+  outline: none;
+}
+.text-input.focused,
+#search-input.focused { border-color: #C4B5FD; }
+#search-input.focused { border-color: #C4B5FD; }
+
+#episode-search { width: 22rem; }
+#channel-search { width: 16rem; }
+
+/* ------------------------------------------------------------------- details */
+
+.detail-top { display: block; white-space: nowrap; }
+.detail-poster {
+  display: inline-block;
+  vertical-align: top;
+  width: 12rem;
+  height: 17.4rem;
+  background: #25252B;
+  border-radius: 0.35rem;
+  overflow: hidden;
+}
+.detail-poster img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  -o-object-fit: cover;
+  object-fit: cover;
+}
+.detail-body {
+  display: inline-block;
+  vertical-align: top;
+  white-space: normal;
+  width: 62%;
+  margin-left: 1.5rem;
+}
+.detail-title { font-size: 1.75rem; font-weight: bold; line-height: 1.2; }
+.detail-sub { color: #AAAAAA; font-size: 1rem; margin: 0.5rem 0 0.75rem 0; }
+.detail-desc { color: #DDDDDD; font-size: 1rem; line-height: 1.5; margin-bottom: 1.25rem; }
+.detail-actions { margin-bottom: 0.5rem; }
+
+.season-bar { margin: 1.5rem 0 0.75rem 0; white-space: nowrap; }
+
+.ep-row {
+  display: block;
+  padding: 0.7rem 1rem;
+  margin-bottom: 0.4rem;
+  background: #1D1D22;
+  border: 3px solid transparent;
+  border-radius: 0.35rem;
+  white-space: nowrap;
+}
+.ep-row.focused { border-color: #C4B5FD; background: #25252B; }
+.ep-num {
+  display: inline-block;
+  width: 3.2rem;
+  color: #C4B5FD;
+  font-weight: bold;
+  font-size: 1rem;
+}
+.ep-title {
+  display: inline-block;
+  width: 58%;
+  font-size: 1rem;
+  color: #FFFFFF;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  vertical-align: middle;
+}
+.ep-dur {
+  display: inline-block;
+  width: 8rem;
+  color: #AAAAAA;
+  font-size: 0.875rem;
+  vertical-align: middle;
+}
+.ep-live {
+  display: inline-block;
+  color: #8B5CF6;
+  font-size: 0.8125rem;
+  font-weight: bold;
+  vertical-align: middle;
+}
+
+/* ------------------------------------------------------------------- library */
+
+.lib-list { display: block; }
+.lib-row {
+  display: block;
+  padding: 0.85rem 1rem;
+  margin-bottom: 0.5rem;
+  background: #1D1D22;
+  border: 3px solid transparent;
+  border-radius: 0.35rem;
+  white-space: nowrap;
+}
+.lib-row.focused { border-color: #C4B5FD; }
+.lib-row .thumb {
+  display: inline-block;
+  vertical-align: middle;
+  width: 2.6rem;
+  height: 3.8rem;
+  background: #25252B;
+  border-radius: 0.2rem;
+  overflow: hidden;
+  margin-right: 0.9rem;
+}
+.lib-row .thumb img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  -o-object-fit: cover;
+  object-fit: cover;
+}
+.lib-row .info { display: inline-block; vertical-align: middle; width: 60%; }
+.lib-row .info .t { display: block; font-size: 1.0625rem; color: #FFFFFF; }
+.lib-row .info .s { display: block; font-size: 0.875rem; color: #AAAAAA; }
+.lib-row .pct {
+  display: inline-block;
+  vertical-align: middle;
+  color: #C4B5FD;
+  font-size: 0.9375rem;
+}
+
+.group-title {
+  font-size: 1.1875rem;
+  font-weight: bold;
+  margin: 1.5rem 0 0.75rem 0;
+}
+.group-title.first { margin-top: 0; }
+
+/* ------------------------------------------------------------------- player */
+
+#player {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: #000000;
+  z-index: 30;
+}
+#player.hidden { display: none; }
+
+#video {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  background: #000000;
+  border: 0;
+  outline: none;
+}
+
+#player-layer {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  z-index: 2;
+}
+#player-layer.hidden { display: none; }
+
+/* The bars are almost opaque rather than solid so the picture behind them is
+   never completely lost. One alpha layer over video is cheap on TV hardware. */
+#player-top {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  padding: 1.5rem 2rem 2rem 2rem;
+  background: #0B0B0E;
+  background: rgba(11, 11, 14, 0.94);
+  border-bottom: 1px solid #2C2C33;
+}
+#player-title {
+  display: block;
+  font-size: 1.3rem;
+  font-weight: bold;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 0.75rem;
+}
+#player-opts { white-space: nowrap; }
+.pill {
+  display: inline-block;
+  padding: 0.35rem 0.8rem;
+  margin-right: 0.5rem;
+  border: 3px solid transparent;
+  border-radius: 1rem;
+  background: #25252B;
+  color: #DDDDDD;
+  font-size: 0.9375rem;
+  white-space: nowrap;
+}
+.pill.on { background: #8B5CF6; color: #FFFFFF; font-weight: bold; }
+.pill.focused { border-color: #C4B5FD; }
+.pill.dim { color: #7A7A85; }
+
+#player-bottom {
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  padding: 1.5rem 2rem 2rem 2rem;
+  background: #0B0B0E;
+  background: rgba(11, 11, 14, 0.94);
+  border-top: 1px solid #2C2C33;
+}
+#seek-wrap { position: relative; height: 1.4rem; margin-bottom: 0.5rem; }
+#seek-track {
+  position: absolute;
+  left: 0; right: 0; top: 0.5rem;
+  height: 0.35rem;
+  background: #3A3A44;
+  border-radius: 0.2rem;
+}
+#seek-fill {
+  position: absolute;
+  left: 0; top: 0;
+  height: 0.35rem;
+  width: 0%;
+  background: #8B5CF6;
+  border-radius: 0.2rem;
+}
+#seek-knob {
+  position: absolute;
+  top: 0.05rem;
+  left: 0;
+  width: 1.2rem;
+  height: 1.2rem;
+  margin-left: -0.6rem;
+  border-radius: 50%;
+  background: #FFFFFF;
+  border: 3px solid #8B5CF6;
+}
+#seek-wrap.focused #seek-fill { background: #C4B5FD; }
+
+#player-times {
+  font-size: 1rem;
+  color: #DDDDDD;
+}
+#player-times .total { float: right; color: #AAAAAA; }
+#player-msg {
+  font-size: 0.9375rem;
+  color: #F87171;
+  margin-top: 0.4rem;
+}
+#player-msg.hidden { display: none; }
+
+#player-center {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 26rem;
+  min-height: 3rem;
+  margin-left: -13rem;
+  margin-top: -1.5rem;
+  padding: 0.9rem 1.2rem;
+  text-align: center;
+  font-size: 1.1rem;
+  color: #FFFFFF;
+  background: rgba(0, 0, 0, 0.72);
+  border: 1px solid #3A3A44;
+  border-radius: 0.4rem;
+  z-index: 3;
+}
+#player-center.hidden { display: none; }
+#player-center .live-dot {
+  display: inline-block;
+  color: #F87171;
+  font-weight: bold;
+  margin-right: 0.4rem;
+}
+
+/* --------------------------------------------------------------- diagnostics */
+
+#diag {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: #101014;
+  z-index: 40;
+  padding: 2rem;
+  overflow: hidden;
+}
+#diag.hidden { display: none; }
+#diag h2 { font-size: 1.4rem; margin-bottom: 0.75rem; }
+#diag p { color: #AAAAAA; font-size: 0.9375rem; margin-bottom: 1rem; }
+#diag-code {
+  font-family: monospace;
+  font-size: 1.6rem;
+  color: #C4B5FD;
+  margin-bottom: 0.5rem;
+}
+#diag-log {
+  font-family: monospace;
+  font-size: 0.875rem;
+  color: #DDDDDD;
+  line-height: 1.5;
+}
+
+/* --------------------------------------------------------- on-screen keyboard */
+
+#osk {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  z-index: 60;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  padding: 1.5rem;
+  background: #08080C;
+  overflow: hidden;
+}
+#osk.hidden { display: none; }
+
+.osk-panel {
+  width: 44rem;
+  max-width: 100%;
+  background: #19191E;
+  border: 2px solid #3A3A44;
+  border-radius: 0.6rem;
+  padding: 1.25rem 1.5rem;
+}
+
+.osk-head { margin-bottom: 0.7rem; }
+.osk-title {
+  display: inline-block;
+  margin-right: 1rem;
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+.osk-hint {
+  display: inline-block;
+  color: #8A8A95;
+  font-size: 0.8125rem;
+}
+
+.osk-value {
+  min-height: 3rem;
+  padding: 0.55rem 0.8rem;
+  margin-bottom: 0.7rem;
+  background: #101014;
+  border: 2px solid #3A3A44;
+  border-radius: 0.35rem;
+  color: #FFFFFF;
+  font-size: 1.35rem;
+  line-height: 1.8rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.osk-value .placeholder { color: #6E6E78; font-size: 1rem; }
+
+.osk-grid { display: block; font-size: 0; }
+
+.osk-key {
+  display: inline-block;
+  width: 15%;
+  height: 3rem;
+  line-height: 2.8rem;
+  margin: 0 0.35rem 0.35rem 0;
+  background: #25252B;
+  border: 3px solid transparent;
+  border-radius: 0.35rem;
+  color: #FFFFFF;
+  font-size: 1.125rem;
+  text-align: center;
+  vertical-align: top;
+  cursor: default;
+  -webkit-user-select: none;
+  user-select: none;
+}
+.osk-key.focused {
+  border-color: #C4B5FD;
+  background: #2F2F38;
+}
+
+.osk-actions {
+  display: block;
+  margin-top: 0.35rem;
+  font-size: 0;
+}
+.osk-action {
+  width: 22%;
+  padding: 0 0.2rem;
+  font-size: 0.95rem;
+}
+.osk-small { width: 8%; }
+.osk-back { width: 22%; }
+.osk-clear { width: 16%; }
+.osk-search { width: 18%; margin-right: 0; }
+.osk-action.primary { background: #8B5CF6; font-weight: bold; }
+.osk-action.primary.focused { border-color: #EDE9FE; }

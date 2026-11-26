@@ -1,0 +1,14 @@
+WEBVTT
+
+NOTE Demonstration subtitles for CineVault TV. Not from any commercial title.
+
+00:00:00.200 --> 00:00:02.800
+CineVault TV: subtitle test track.
+
+00:00:03.000 --> 00:00:05.500
+If you can read this on the television,
+native WebVTT tracks are working.
+
+00:00:06.000 --> 00:00:09.000
+This file is served by the CineVault TV
+backend with byte-range support.

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=1280">
+<meta name="format-detection" content="telephone=no">
+<title>CineVault TV</title>
+<meta name="description" content="CineVault TV - lightweight remote-controlled movie, series and Live TV browser application.">
+<link rel="icon" type="image/svg+xml" href="assets/logo-tv.svg">
+<link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+
+<div id="app">
+
+  <div id="sidebar">
+    <div id="brand"><span class="cv">CV</span>CineVault<span class="tv">TV</span></div>
+    <div id="brand-sub">Light build 1.0</div>
+
+    <div id="nav">
+      <div class="nav-item" id="nav-home" data-nav="home">Home</div>
+      <div class="nav-item" id="nav-search" data-nav="search">Search</div>
+      <div class="nav-item" id="nav-live" data-nav="live">Live TV</div>
+      <div class="nav-item" id="nav-library" data-nav="library">My Library</div>
+    </div>
+
+    <div id="sidebar-foot">
+      <span class="state" id="foot-provider">Connecting...</span><br>
+      <span id="foot-hint">OK select &middot; Back return</span>
+    </div>
+  </div>
+
+  <div id="main">
+
+    <!-- HOME -->
+    <div class="screen" id="view-home">
+      <div class="shead">
+        <span class="screen-title">Home</span>
+        <span class="screen-note" id="home-note"></span>
+      </div>
+      <div class="sfilters" id="home-filters"></div>
+      <div class="sbody" id="home-body">
+        <div class="loading">Loading...</div>
+      </div>
+    </div>
+
+    <!-- SEARCH -->
+    <div class="screen hidden" id="view-search">
+      <div class="shead">
+        <span class="screen-title">Search</span>
+        <span class="screen-note">Movies and series only. Press OK on the box to open the on-screen keyboard.</span>
+      </div>
+      <div class="sfilters" id="search-filters"></div>
+      <div class="sbody" id="search-body">
+        <div class="notice">Open the on-screen keyboard to enter a title.</div>
+      </div>
+    </div>
+
+    <!-- LIVE TV -->
+    <div class="screen hidden" id="view-live">
+      <div class="shead" id="live-head">
+        <span class="screen-title">Live TV</span>
+      </div>
+      <div class="sfilters" id="live-filters"></div>
+      <div class="sbody" id="live-body">
+        <div class="loading">Loading...</div>
+      </div>
+    </div>
+
+    <!-- LIBRARY -->
+    <div class="screen hidden" id="view-library">
+      <div class="shead">
+        <span class="screen-title">My Library</span>
+        <span class="screen-note" id="library-note">Stored on this television only.</span>
+      </div>
+      <div class="sfilters" id="library-filters"></div>
+      <div class="sbody" id="library-body"></div>
+    </div>
+
+    <!-- DETAILS -->
+    <div class="screen hidden" id="view-details">
+      <div class="sbody" id="details-body"></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- PLAYER (single video element for the whole application) -->
+<div id="player" class="hidden">
+  <video id="video" preload="none" playsinline webkit-playsinline></video>
+
+  <div id="player-layer" class="hidden">
+    <div id="player-top">
+      <span id="player-title"></span>
+      <div id="player-opts"></div>
+    </div>
+
+    <div id="player-bottom">
+      <div id="seek-wrap">
+        <div id="seek-track"><div id="seek-fill"></div></div>
+        <div id="seek-knob"></div>
+      </div>
+      <div id="player-times">
+        <span id="time-current">00:00:00</span>
+        <span class="total" id="time-total">--:--:--</span>
+      </div>
+      <div id="player-msg" class="hidden"></div>
+    </div>
+  </div>
+
+  <div id="player-center" class="hidden"></div>
+</div>
+
+<!-- REMOTE DIAGNOSTICS (development only, opened with ?diag=1 or Back+OK+Back) -->
+<div id="diag" class="hidden">
+  <h2>Remote key test</h2>
+  <p>Press any remote button. Last key code and event name are shown below. Back three times closes this screen.</p>
+  <div id="diag-code">-</div>
+  <div id="diag-log"></div>
+</div>
+
+<script src="js/config.js"></script>
+<script src="js/util.js"></script>
+<script src="js/storage.js"></script>
+<script src="js/api.js"></script>
+<script src="js/lazy.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/navigation.js"></script>
+<script src="js/home.js"></script>
+<script src="js/search.js"></script>
+<script src="js/osk.js"></script>
+<script src="js/details.js"></script>
+<script src="js/subtitles.js"></script>
+<script src="js/player.js"></script>
+<script src="js/live-tv.js"></script>
+<script src="js/library.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
